@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getIncome } from "../../services/apiincome";
+import { getIncome } from "../../services/apiIncome";
 import IncomeTable from "../../ui/IncomeTable";
 import Spinner from "../../ui/Spinner";
 

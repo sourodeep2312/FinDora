@@ -1,27 +1,18 @@
 import { useState } from "react";
-import { createTransaction } from "../services/apiincome";
+
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
+import { createTransaction } from "../services/apiIncome";
 
 function IncomeForm() {
-  /*   const [types, setTypes] = useState(null);
-  const { data: income, isLoading } = useQuery({
-    queryKey: ["income"],
-    queryFn: getIncome,
-  });
-  useEffect(() => {
-    if (income && income.length > 0) {
-      const extractedTypes = income.map((item) => item.type);
-      setTypes(extractedTypes);
-    }
-  }, [income]);
-
-  if (isLoading) return <Spinner />; */
+  const navigate = useNavigate();
   const [selectedType, setSelectedType] = useState("");
   return (
     <div className="flex items-center justify-center sha">
       <form
         action={createTransaction}
-        className="flex flex-col text-lg  border-zinc-800 bg-white rounded-md shadow-md p-6 w-[28rem]"
+        className="flex flex-col text-lg  border-zinc-800 rounded-md  p-6 w-[28rem]"
+        onSubmit={() => navigate("/transactions")}
       >
         <h1 className="text-2xl font-semibold mb-4 text-center">
           Enter your transactions
