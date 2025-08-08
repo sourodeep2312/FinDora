@@ -9,7 +9,7 @@ function Transaction() {
     isLoading: isIncomeLoading,
     error: incomeError,
   } = useQuery({
-    queryKey: ["income"],
+    queryKey: ["transaction"],
     queryFn: getIncome,
   });
 

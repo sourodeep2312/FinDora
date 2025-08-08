@@ -8,7 +8,7 @@ function IncomeForm() {
   const navigate = useNavigate();
   const [selectedType, setSelectedType] = useState("");
   return (
-    <div className="flex items-center justify-center sha">
+    <div className="flex items-center justify-center ">
       <form
         action={createTransaction}
         className="flex flex-col text-lg  border-zinc-800 rounded-md  p-6 w-[28rem]"
@@ -18,7 +18,7 @@ function IncomeForm() {
           Enter your transactions
         </h1>
         <div className="flex items-center gap-4 mb-4">
-          <label className="w-24">Type:</label>
+          <label className="w-24 text-xl font-semibold">Type:</label>
           <select
             required
             name="type"
@@ -35,7 +35,7 @@ function IncomeForm() {
         </div>
 
         <div className="flex items-center gap-4 mb-4">
-          <label className="w-24">Amount:</label>
+          <label className="w-24 text-xl font-semibold">Amount:</label>
           <input
             type="number"
             required
@@ -45,7 +45,7 @@ function IncomeForm() {
         </div>
 
         <div className="flex items-center gap-4 mb-4">
-          <label className="w-24">Date:</label>
+          <label className="w-24 text-xl font-semibold">Date:</label>
           <input
             type="date"
             required
@@ -56,9 +56,9 @@ function IncomeForm() {
 
         <div className="flex items-center gap-4 mb-4">
           {selectedType === "income" ? (
-            <label className="w-24">Source:</label>
+            <label className="w-24 text-xl font-semibold">Source:</label>
           ) : (
-            <label className="w-24">Purpose:</label>
+            <label className="w-24 text-xl font-semibold">Purpose:</label>
           )}
           {selectedType === "income" ? (
             <select
@@ -100,7 +100,7 @@ function IncomeForm() {
           )}
         </div>
         <div className="flex items-center gap-4 mb-4">
-          <label className="w-24">Note:</label>
+          <label className="w-24 text-xl font-semibold">Note:</label>
           <textarea
             name="note"
             className="flex-1 border border-zinc-800 rounded-sm px-2 py-1"
@@ -109,7 +109,7 @@ function IncomeForm() {
         <div className="flex justify-between">
           <Button
             type="reset"
-            className="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 transition text-zinc-800"
+            className="bg-stone-500/80 px-4 py-2 rounded-lg hover:bg-stone-400/80 transition text-zinc-800"
           >
             Clear
           </Button>

@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 function IncomeTable({ income, error }) {
   const [openMenuId, setOpenMenuId] = useState(null);
   const [position, setPosition] = useState(null);
-  console.log(income);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -31,8 +30,8 @@ function IncomeTable({ income, error }) {
 
     const rect = e.currentTarget.getBoundingClientRect();
     setPosition({
-      x: rect.left + 40,
-      y: rect.top + window.scrollY,
+      x: rect.left - 10,
+      y: rect.top + 25 + window.scrollY,
     });
     setOpenMenuId((openId) => (openId === id ? null : id));
   }

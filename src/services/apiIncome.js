@@ -1,7 +1,7 @@
 import { supabase } from "./supabase";
 
 export async function getIncome() {
-  const { data, error } = await supabase.from("income").select("*");
+  const { data, error } = await supabase.from("transaction").select("*");
 
   if (error) {
     console.log(error);
@@ -24,7 +24,7 @@ export async function createTransaction(formData) {
     newTransactions.purpose = formData.get("purpose");
   }
   const { error } = await supabase
-    .from("income")
+    .from("transaction")
     .insert([newTransactions])
     .select();
   if (error) {

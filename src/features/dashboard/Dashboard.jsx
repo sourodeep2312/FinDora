@@ -9,6 +9,7 @@ function Dashboard() {
   return (
     <>
       <div>Dashboard</div>
+
       <div className="p-8">
         <Button onClick={() => setModalOpen(true)}>Add Expenses</Button>
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
