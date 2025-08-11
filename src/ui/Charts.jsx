@@ -41,14 +41,14 @@ export default function Charts() {
   if (isTransactionLoading) return <Spinner />;
   if (incomeError)
     return (
-      <div className="text-4xl px-6 py-19 mt-5 rounded-2xl text-center bg-amber-300 text-zinc-600 font-bold">
+      <div className="text-4xl  sm:text-2xl md:text-3xl px-6 py-19 mt-5 rounded-2xl text-center bg-amber-300 text-zinc-600 font-bold">
         Error loading data:
         <span className="text-rose-700">{incomeError.message}</span>
       </div>
     );
   if (!transactions || transactions.length === 0)
     return (
-      <div className="text-4xl px-6 py-19 mt-5 rounded-2xl text-center bg-amber-300 text-zinc-600 font-bold ">
+      <div className="text-xl sm:text-3xl md:text-4xl px-6 py-5 sm:py-0 mt-5 rounded-2xl text-center bg-amber-300 text-zinc-600 font-bold">
         <h1>
           <p className="my-5">No transactions logged yet.</p>{" "}
           <p className="my-5"> Add Your first transaction to see the charts!</p>

@@ -98,7 +98,7 @@ function IncomeForm({ mode = "create", onClose, transaction }) {
         className="flex flex-col text-lg border-zinc-800 rounded-md p-6 w-[28rem]"
         onSubmit={handleSubmit}
       >
-        <h1 className="text-2xl font-semibold mb-4 text-center">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 text-center">
           {mode === "create" ? "Enter your transactions" : "Edit Transaction"}
         </h1>
 
@@ -107,7 +107,9 @@ function IncomeForm({ mode = "create", onClose, transaction }) {
             required
             name="type"
             disabled={isLoading}
-            className="flex-1 border border-zinc-800 rounded-sm px-2 py-1"
+            className="sm:w-40        
+    text-lg
+     sm:text-base flex-1 border border-zinc-800 rounded-sm px-2 py-1"
             value={selectedType}
             onChange={(e) => {
               setSelectedType(e.target.value);
@@ -229,7 +231,7 @@ function IncomeForm({ mode = "create", onClose, transaction }) {
           />
         </FormRow>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between px-2">
           <Button
             type="reset"
             disabled={isLoading}
@@ -270,7 +272,7 @@ function IncomeForm({ mode = "create", onClose, transaction }) {
 function FormRow({ label, children }) {
   return (
     <div className="flex items-center gap-4 mb-4">
-      <label className="w-24 text-xl font-semibold">{label}</label>
+      <label className="w-24 px-2 text-xl font-semibold">{label}</label>
       {children}
     </div>
   );

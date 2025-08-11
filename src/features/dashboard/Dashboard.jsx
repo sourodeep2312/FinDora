@@ -9,7 +9,9 @@ function Dashboard() {
 
   return (
     <div className="flex flex-col">
-      <div className="text-3xl font-extrabold mb-4 mt-5">Dashboard</div>
+      <div className="text-3xl  sm:text-2xl md:text-3xl font-extrabold mb-4 mt-5">
+        Dashboard
+      </div>
 
       <Charts />
       <div className="flex flex-col p-8">

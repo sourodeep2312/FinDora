@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import Spinner from "./Spinner";
 import SpinnerMini from "./SpinnerMini";
 
-function SideNav() {
+function SideNav({ closeSidebar }) {
   const [localError, setLocalError] = useState();
   const navigate = useNavigate();
   const { mutate: signOut, isPending } = useSignOut({
@@ -30,6 +30,9 @@ function SideNav() {
       <ul className="flex flex-col gap-6 ml-6 px-5 py-2 text-left text-xl mt-5 font-bold items-start">
         <li>
           <NavLink
+            onClick={() => {
+              closeSidebar();
+            }}
             to="/"
             className={({ isActive }) =>
               isActive
@@ -42,6 +45,9 @@ function SideNav() {
         </li>
         <li>
           <NavLink
+            onClick={() => {
+              closeSidebar();
+            }}
             to="/transactions"
             className={({ isActive }) =>
               isActive
@@ -54,6 +60,9 @@ function SideNav() {
         </li>
         <li>
           <NavLink
+            onClick={() => {
+              closeSidebar();
+            }}
             to="/settings"
             className={({ isActive }) =>
               isActive
@@ -70,7 +79,12 @@ function SideNav() {
       )}
       <button
         className="px-6 py-3 flex gap-2 items-center text-left text-base hover:text-amber-400 transition-colors duration-200 mb-10 mx-auto disabled:text-amber-100"
-        onClick={handleSubmit}
+        //onClick={handleSubmit}
+        onClick={() => {
+          handleSubmit();
+          toast.error("Sign out failed, please try again");
+          closeSidebar();
+        }}
         disabled={isPending}
       >
         <ArrowRightOnRectangleIcon className="w-6 h-6" />{" "}

@@ -8,7 +8,7 @@ import Spinner from "./Spinner";
 import SpinnerMini from "./SpinnerMini";
 
 function SignIn() {
-  const [email, setEmail] = useState("sd@test.com");
+  const [email, setEmail] = useState("77hc2e8cmh@zudpck.com");
   const [password, setPassword] = useState("1234567890");
   const [, setLocalError] = useState(null);
   const navigate = useNavigate();

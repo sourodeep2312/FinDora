@@ -4,6 +4,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/16/solid";
 import { format } from "date-fns";
+import { TableHead } from "./IncomeTable";
 
 function TransactionRow({
   item,
@@ -20,24 +21,20 @@ function TransactionRow({
   return (
     <>
       <tr>
-        <td className="border  border-gray-300 px-4 py-2 text-center text-lg font-semibold">
+        <TableHead>
           {item.date ? format(new Date(item.date), "dd/MM/yyyy") : ""}
-        </td>
-        <td
-          className={`border  border-gray-300 px-4 py-2 text-center text-lg font-semibold    ${
+        </TableHead>
+        <TableHead
+          className={` ${
             item.type === "income" ? "text-emerald-700" : "text-rose-500"
           }`}
         >
           {item.type === "income" ? `+${item.amount}` : `-${item.amount}`}
-        </td>
-        <td className="border  border-gray-300 px-4 py-2 text-center text-lg font-semibold capitalize">
-          {item.source || "-"}
-        </td>
-        <td className="border  border-gray-300 px-4 py-2 text-center text-lg font-semibold capitalize">
-          {item.purpose || "-"}
-        </td>
-        <td
-          className={`border  border-gray-300 px-4 py-2 text-center text-lg font-semibold uppercase
+        </TableHead>
+        <TableHead>{item.purpose || "-"}</TableHead>
+        <TableHead>{item.source || "-"}</TableHead>
+        <TableHead
+          className={`hidden md:table-cell
                   ${
                     item.type === "income"
                       ? "text-emerald-700"
@@ -45,16 +42,16 @@ function TransactionRow({
                   }`}
         >
           {`${item.type === "income" ? "debit" : "credit"}`}
-        </td>
-        <td className="border  border-gray-300 px-4 py-2 text-center text-lg font-semibold capitalize">
+        </TableHead>
+        <TableHead className="hidden md:table-cell">
           {item.note || "-"}
-        </td>
-        <td className="menu-button border  border-gray-300 px-4 py-2 text-center text-lg font-semibold">
+        </TableHead>
+        <TableHead>
           <button
-            className="hover:bg-stone-200 p-1 rounded-lg transition"
+            className="hover:bg-stone-200 p-1 rounded-lg transition "
             onClick={(e) => handleMenu(itemId, e)}
           >
-            <EllipsisVerticalIcon className="h-5 w-5 " />
+            <EllipsisVerticalIcon className="h-5 w-5 text-center" />
           </button>
 
           {openMenuId === item.id && (
@@ -95,7 +92,7 @@ function TransactionRow({
               </li>
             </ul>
           )}
-        </td>
+        </TableHead>
       </tr>
     </>
   );

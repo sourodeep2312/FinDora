@@ -87,16 +87,17 @@ function UpdateUserInfo() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg flex flex-col shadow-md justify-center items-center">
-      <h2 className="text-3xl font-extrabold mb-4 mt-5 text-zinc-800 text-start">
+    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg flex flex-col shadow-md">
+      <h2 className="text-2xl font-extrabold mb-4 mt-5 text-zinc-800">
         Update Profile
       </h2>
+
       <form
         onSubmit={handleNameSubmit}
-        className="flex flex-col space-x-2 text-xl font-medium"
+        className="flex flex-col text-xl font-medium"
       >
-        <div className="my-2 flex items-center gap-3">
-          <label className="w-44 text-xl font-medium h-12 flex items-center">
+        <div className="my-2 flex flex-col sm:flex-row sm:items-center gap-3">
+          <label className="sm:w-44 text-xl font-medium flex items-center">
             Update Full Name:
           </label>
           <input
@@ -107,12 +108,12 @@ function UpdateUserInfo() {
             }
             placeholder="Full Name"
             required
-            className="border border-zinc-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 h-12"
+            className="border border-zinc-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 h-12 w-full"
           />
         </div>
 
         <Button
-          className="w-40 text-xl"
+          className="w-full sm:w-40 text-lg"
           type="submit"
           disabled={isNameUpdating}
         >
@@ -120,17 +121,16 @@ function UpdateUserInfo() {
         </Button>
       </form>
 
-      <h2 className="text-3xl font-extrabold mb-4 mt-10 text-zinc-800 text-start">
+      <h2 className="text-2xl font-extrabold mb-4 mt-10 text-zinc-800">
         Change Password
       </h2>
+
       <form
         onSubmit={handleEmailPassSubmit}
-        className="flex flex-col space-x-2 text-xl font-medium"
+        className="flex flex-col text-xl font-medium"
       >
-        <div className="my-2 flex flex-row space-x-2">
-          <label className="w-52 text-xl font-medium h-12 flex items-center">
-            Email:
-          </label>
+        <div className="my-2 flex flex-col sm:flex-row sm:items-center gap-3">
+          <label className="sm:w-52 text-xl font-medium">Email:</label>
           <input
             type="email"
             autoComplete="email"
@@ -141,12 +141,12 @@ function UpdateUserInfo() {
             }
             required
             disabled
-            className=" border-zinc-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 my-auto focus:ring-emerald-500 disabled:bg-gray-200 disabled:cursor-not-allowed"
+            className="border border-zinc-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:bg-gray-200 disabled:cursor-not-allowed w-full"
           />
         </div>
 
-        <div className="my-2 flex flex-row space-x-2">
-          <label className="w-52 text-xl font-medium h-12 flex items-center">
+        <div className="my-2 flex flex-col sm:flex-row sm:items-center gap-3">
+          <label className="sm:w-52 text-xl font-medium">
             Create New Password:
           </label>
           <input
@@ -160,12 +160,12 @@ function UpdateUserInfo() {
                 newPassword: e.target.value,
               }))
             }
-            className="border border-zinc-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 my-auto focus:ring-emerald-500"
+            className="border border-zinc-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 w-full"
           />
         </div>
 
-        <div className="my-2 flex flex-row space-x-2">
-          <label className="w-52 text-xl font-medium h-12 flex items-center">
+        <div className="my-2 flex flex-col sm:flex-row sm:items-center gap-3">
+          <label className="sm:w-52 text-xl font-medium">
             Confirm Password:
           </label>
           <input
@@ -178,13 +178,13 @@ function UpdateUserInfo() {
                 confirmPassword: e.target.value,
               }))
             }
-            className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2"
+            className="border border-zinc-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 w-full"
             placeholder="Confirm New Password"
           />
         </div>
 
         <Button
-          className="w-40 text-xl"
+          className="w-full sm:w-40 text-lg"
           type="submit"
           disabled={isPassUpdating}
         >

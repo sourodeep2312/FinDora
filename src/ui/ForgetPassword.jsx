@@ -9,7 +9,8 @@ export default function ForgotPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "http://localhost:5173/update-password", // change for prod
+      redirectTo:
+        "https://fin-dora-br6ljlg36-sds-projects-91757ca5.vercel.app//update-password", // change for prod
     });
     if (error) setMessage(error.message);
     else setMessage("Password reset link sent! Check your email.");

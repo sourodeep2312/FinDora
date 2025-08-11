@@ -3,7 +3,7 @@ export function Filter({ value, onChange }) {
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600"
+      className="text-sm w-[160px] md:text-2xl px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600"
     >
       <option value="all">All Transactions</option>
       <option value="income">Income Only</option>
@@ -17,7 +17,7 @@ export function DateFilter({ value, onChange }) {
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600"
+      className="text-sm w-[160px] md:text-2xl px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600"
     >
       <option value="all">All Dates</option>
       <option value="last_7_days">Last 7 Days</option>

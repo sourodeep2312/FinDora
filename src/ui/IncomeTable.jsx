@@ -82,7 +82,7 @@ function IncomeTable() {
   <p className="text-red-600">Error loading data.</p>;
   console.log("editItem in IncomeTable:", editItem);
   return (
-    <div className="shadow-md rounded-lg mt-4">
+    <div className="shadow-md rounded-lg mt-4 overflow-x-auto">
       {editItem && (
         <Modal isOpen={true} onClose={() => setEditItem(null)}>
           <IncomeForm
@@ -102,8 +102,8 @@ function IncomeTable() {
             <TableHead>Amount</TableHead>
             <TableHead>Purpose</TableHead>
             <TableHead>Source</TableHead>
-            <TableHead>Type</TableHead>
-            <TableHead>Note</TableHead>
+            <TableHead className="hidden md:table-cell">Type</TableHead>
+            <TableHead className="hidden md:table-cell">Note</TableHead>
             <TableHead>Action</TableHead>
           </tr>
         </thead>
@@ -134,13 +134,20 @@ function IncomeTable() {
     </div>
   );
 }
-
-function TableHead({ children }) {
+export default IncomeTable;
+export function TableHead({ children, className = "" }) {
   return (
-    <th className="border w-24 border-gray-300 px-4 py-2 text-center text-xl">
+    <th
+      className={`
+        border border-gray-300 
+        px-2 py-1 text-xs
+        sm:px-3 sm:py-2 sm:text-sm 
+        md:px-4 md:py-2 md:text-base 
+        text-center
+        ${className}
+      `}
+    >
       {children}
     </th>
   );
 }
-
-export default IncomeTable;
