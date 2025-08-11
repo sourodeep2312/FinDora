@@ -1,4 +1,4 @@
-import UpdateUserInfo from "./updateUserInfo";
+import UpdateUserInfo from "./UpdateUserInfo";
 
 export default function Settings() {
   return (
