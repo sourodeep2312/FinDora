@@ -13,7 +13,7 @@ import ForgotPassword from "./ui/ForgetPassword";
 import ProtectedRouter from "./ui/ProtectedRouter";
 import SideNavLayout from "./ui/SideNavLayout";
 import UserMenuHolder from "./ui/UserMenuHolder";
-import UpdateUserInfo from "./ui/updateUserInfo";
+import UpdateUserInfo from "./ui/UpdateUserInfo";
 
 function App() {
   return (
