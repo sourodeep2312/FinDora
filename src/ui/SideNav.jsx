@@ -21,10 +21,11 @@ function SideNav({ closeSidebar }) {
     },
   });
   async function handleSubmit(e) {
-    if (isPending) return <Spinner />;
     e.preventDefault();
     signOut();
+    closeSidebar();
   }
+  if (isPending) return <Spinner />;
   return (
     <div className="flex flex-col justify-between flex-grow text-amber-200">
       <ul className="flex flex-col gap-6 ml-6 px-5 py-2 text-left text-xl mt-5 font-bold items-start">
@@ -80,11 +81,7 @@ function SideNav({ closeSidebar }) {
       <button
         className="px-6 py-3 flex gap-2 items-center text-left text-base hover:text-amber-400 transition-colors duration-200 mb-10 mx-auto disabled:text-amber-100"
         //onClick={handleSubmit}
-        onClick={() => {
-          handleSubmit();
-          toast.error("Sign out failed, please try again");
-          closeSidebar();
-        }}
+        onClick={handleSubmit}
         disabled={isPending}
       >
         <ArrowRightOnRectangleIcon className="w-6 h-6" />{" "}
