@@ -24,6 +24,7 @@ function SideNav({ closeSidebar }) {
     e.preventDefault();
     signOut();
     closeSidebar();
+    navigate("/signin");
   }
   if (isPending) return <Spinner />;
   return (
