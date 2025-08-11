@@ -13,7 +13,7 @@ function SideNavLayout() {
   return (
     <div className="min-h-screen flex flex-col bg-stone-100 text-zinc-800">
       {/* Top Navbar */}
-      <header className="flex  sm:flex-row justify-between items-center px-4 sm:px-10 py-2 shadow-md bg-zinc-800 text-white h-auto sm:h-20 gap-2">
+      <header className="flex  sm:flex-row justify-between items-center px-4 sm:px-10 py-2 shadow-md bg-zinc-800 text-white h-auto sm:h-20 gap-2 absolute w-full ">
         <div className="flex flex-row items-center gap-2">
           <button
             onClick={() => setOpen((prev) => !prev)}
@@ -44,7 +44,7 @@ function SideNavLayout() {
         {open && (
           <aside
             className={`flex flex-col justify-between 
-    w-full sm:w-64 
+    w-full sm:w-64 mt-16 sm:mt-20
     bg-zinc-800 border-t border-zinc-700 
     transform transition-transform duration-300 ease-in-out
     ${open ? "translate-x-0" : "-translate-x-full"}
@@ -58,7 +58,7 @@ function SideNavLayout() {
         )}
 
         {/* Page Content */}
-        <main className="flex-1 p-4 sm:p-6 overflow-auto">
+        <main className="flex-1 p-4 sm:p-6 overflow-auto mt-12">
           <Outlet />
         </main>
       </div>
