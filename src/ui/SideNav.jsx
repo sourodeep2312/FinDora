@@ -4,6 +4,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSignOut } from "../hooks/useSignOut";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import Spinner from "./Spinner";
+import SpinnerMini from "./SpinnerMini";
 
 function SideNav() {
   const [localError, setLocalError] = useState();
@@ -19,8 +21,8 @@ function SideNav() {
     },
   });
   async function handleSubmit(e) {
+    if (isPending) return <Spinner />;
     e.preventDefault();
-    if (isPending) return;
     signOut();
   }
   return (
@@ -72,7 +74,7 @@ function SideNav() {
         disabled={isPending}
       >
         <ArrowRightOnRectangleIcon className="w-6 h-6" />{" "}
-        {isPending ? "Sign Out..." : "Sign Out"}
+        {isPending ? <SpinnerMini /> : "Sign Out"}
       </button>
     </div>
   );

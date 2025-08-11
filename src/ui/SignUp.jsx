@@ -1,10 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { useState } from "react";
-import { useSignUp } from "../hooks/useSingup";
+import { useSignUp } from "../hooks/useSignup";
 import toast from "react-hot-toast";
 
 function SignUp() {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -28,7 +29,7 @@ function SignUp() {
     }
 
     setError("");
-    signup({ email, password });
+    signup({ email, password, fullName });
     console.log("Passwords matched. Submitting...");
   }
   function handlePassword(e) {
@@ -67,6 +68,10 @@ function SignUp() {
             <input
               type="text"
               required
+              value={fullName}
+              onChange={(e) => {
+                setFullName(e.target.value);
+              }}
               placeholder="eg. Abhishek Kr Sharma"
               className=" border border-zinc-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />

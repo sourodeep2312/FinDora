@@ -1,5 +1,9 @@
-function Settings() {
-  return <div>Settings</div>;
-}
+import UpdateUserInfo from "./updateUserInfo";
 
-export default Settings;
+export default function Settings() {
+  return (
+    <div>
+      <UpdateUserInfo />
+    </div>
+  );
+}

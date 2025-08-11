@@ -8,10 +8,12 @@ import Settings from "./ui/Settings";
 import SignIn from "./ui/SignIn";
 import SignUp from "./ui/SignUp";
 
+import { Toaster } from "react-hot-toast";
+import ForgotPassword from "./ui/ForgetPassword";
+import ProtectedRouter from "./ui/ProtectedRouter";
 import SideNavLayout from "./ui/SideNavLayout";
 import UserMenuHolder from "./ui/UserMenuHolder";
-import ProtectedRouter from "./ui/ProtectedRouter";
-import { Toaster } from "react-hot-toast";
+import UpdateUserInfo from "./ui/updateUserInfo";
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
         {/* Standalone pages (not inside AppLayout) */}
         <Route path="signup" element={<SignUp />} />
         <Route path="signin" element={<SignIn />} />
+        <Route path="reset-password" element={<ForgotPassword />} />
+        <Route path="update-password" element={<UpdateUserInfo />} />
 
         {/* 404 */}
         <Route path="*" element={<NotFound />} />

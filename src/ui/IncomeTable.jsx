@@ -1,16 +1,60 @@
-import {
-  EllipsisVerticalIcon,
-  EyeIcon,
-  PencilSquareIcon,
-  TrashIcon,
-} from "@heroicons/react/16/solid";
-import { format } from "date-fns";
-import { useEffect, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { deleteTransaction, updateTransaction } from "../services/apiIncome";
+import IncomeForm from "./IncomeForm";
+import Modal from "./Modal";
+import TransactionRow from "./TransactionRow";
+import { useTransactionContext } from "../context/TransactionContext";
 
-function IncomeTable({ income, error }) {
+function IncomeTable() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  // Adjust as needed
+  const { paginatedTransaction, error } = useTransactionContext();
+
   const [openMenuId, setOpenMenuId] = useState(null);
   const [position, setPosition] = useState(null);
+  const [editItem, setEditItem] = useState(null);
 
+  // Delete mutation
+  const { mutate: deleteTransactionById, isLoading: isDeleting } = useMutation({
+    mutationFn: deleteTransaction,
+    onSuccess: () => {
+      queryClient.invalidateQueries("transactions");
+      toast.success("Transaction deleted successfully");
+      setOpenMenuId(null);
+    },
+    onError: (err) => {
+      console.error("Failed to delete transaction:", err);
+      toast.error("Failed to delete transaction");
+    },
+  });
+
+  // Edit mutation
+  const { mutate: editTransaction, isLoading: isEditing } = useMutation({
+    mutationFn: ({ id, updatedData }) => updateTransaction(id, updatedData),
+    onSuccess: () => {
+      queryClient.invalidateQueries("transactions");
+      toast.success("Transaction updated successfully");
+      setEditItem(null);
+      setOpenMenuId(null);
+      navigate("/transactions"); // Redirect after edit
+    },
+    onError: (err) => {
+      console.error("Failed to update transaction:", err);
+      toast.error("Failed to update transaction");
+    },
+  });
+
+  const handleDelete = (id) => deleteTransactionById(id);
+
+  const handleEdit = (id, updatedData) => {
+    editTransaction({ id, updatedData });
+  };
+
+  // Close menu on outside click
   useEffect(() => {
     function handleClickOutside(e) {
       if (
@@ -24,115 +68,78 @@ function IncomeTable({ income, error }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (error) return <p className="text-red-600">Error loading data.</p>;
-  function handleMenu(id, e) {
+  const handleMenu = (id, e) => {
     e.stopPropagation();
-
     const rect = e.currentTarget.getBoundingClientRect();
     setPosition({
       x: rect.left - 10,
       y: rect.top + 25 + window.scrollY,
     });
     setOpenMenuId((openId) => (openId === id ? null : id));
-  }
+  };
 
+  if (error) return;
+  <p className="text-red-600">Error loading data.</p>;
+  console.log("editItem in IncomeTable:", editItem);
   return (
-    <div className=" shadow-md rounded-lg mt-4">
+    <div className="shadow-md rounded-lg mt-4">
+      {editItem && (
+        <Modal isOpen={true} onClose={() => setEditItem(null)}>
+          <IncomeForm
+            mode="edit"
+            transaction={editItem}
+            onSubmit={(updatedData) => handleEdit(editItem.id, updatedData)}
+            isLoading={isEditing}
+            onClose={() => setEditItem(null)}
+          />
+        </Modal>
+      )}
+
       <table className="min-w-full border border-gray-700 text-left rounded-lg overflow-hidden">
         <thead className="bg-gray-100">
           <tr>
-            <th className="border  border-gray-300 px-4 py-2 text-center text-xl">
-              Date
-            </th>
-            <th className="border  border-gray-300 px-4 py-2 w-32 text-center text-xl">
-              Amount
-            </th>
-            <th className="border  border-gray-300 px-4 py-2 text-center text-xl ">
-              Source
-            </th>
-            <th className="border  border-gray-300 px-4 py-2  text-center text-xl">
-              Purpose
-            </th>
-            <th className="border  border-gray-300 px-1 py-2 text-center text-xl">
-              Type
-            </th>
-            <th className="border  border-gray-300 px-2 py-2 w-md text-center text-xl">
-              Note
-            </th>
-            <th className="border  border-gray-300 px-4 py-2 text-center text-xl">
-              {" "}
-            </th>
+            <TableHead>Date</TableHead>
+            <TableHead>Amount</TableHead>
+            <TableHead>Purpose</TableHead>
+            <TableHead>Source</TableHead>
+            <TableHead>Type</TableHead>
+            <TableHead>Note</TableHead>
+            <TableHead>Action</TableHead>
           </tr>
         </thead>
         <tbody>
-          {income?.map((item) => (
-            <tr key={item.id}>
-              <td className="border  border-gray-300 px-4 py-2 text-center text-lg font-semibold">
-                {item.date ? format(new Date(item.date), "dd/MM/yyyy") : ""}
-              </td>
-              <td
-                className={`border  border-gray-300 px-4 py-2 text-center text-lg font-semibold    ${
-                  item.type === "income" ? "text-emerald-700" : "text-rose-500"
-                }`}
-              >
-                {item.type === "income" ? `+${item.amount}` : `-${item.amount}`}
-              </td>
-              <td className="border  border-gray-300 px-4 py-2 text-center text-lg font-semibold capitalize">
-                {item.source || "-"}
-              </td>
-              <td className="border  border-gray-300 px-4 py-2 text-center text-lg font-semibold capitalize">
-                {item.purpose || "-"}
-              </td>
-              <td
-                className={`border  border-gray-300 px-4 py-2 text-center text-lg font-semibold uppercase
-                  ${
-                    item.type === "income"
-                      ? "text-emerald-700"
-                      : "text-rose-500"
-                  }`}
-              >
-                {`${item.type === "income" ? "debit" : "credit"}`}
-              </td>
-              <td className="border  border-gray-300 px-4 py-2 text-center text-lg font-semibold capitalize">
-                {item.note || "-"}
-              </td>
-              <td className="menu-button border  border-gray-300 px-4 py-2 text-center text-lg font-semibold">
-                <button
-                  className="hover:bg-stone-200 p-1 rounded-lg transition"
-                  onClick={(e) => handleMenu(item.id, e)}
-                >
-                  <EllipsisVerticalIcon className="h-5 w-5 " />
-                </button>
-
-                {openMenuId === item.id && (
-                  <ul
-                    className="dropdown-menu absolute right-0 mt-2 w-12 bg-white shadow-md rounded-md z-50"
-                    onClick={(e) => e.stopPropagation()}
-                    style={{
-                      position: "absolute",
-                      top: position.y,
-                      left: position.x,
-                    }}
-                  >
-                    <li>
-                      <button className="block px-4 py-2 text-sm hover:bg-gray-100">
-                        <PencilSquareIcon className="h-5 w-5 " />
-                      </button>
-                    </li>
-                    <li>
-                      {" "}
-                      <button className="block px-4 py-2 text-sm hover:bg-gray-100">
-                        <TrashIcon className="h-5 w-5 " />
-                      </button>
-                    </li>
-                  </ul>
-                )}
+          {paginatedTransaction.length > 0 ? (
+            paginatedTransaction.map((item) => (
+              <TransactionRow
+                key={item.id}
+                item={item}
+                openMenuId={openMenuId}
+                position={position}
+                setOpenMenuId={setOpenMenuId}
+                handleMenu={handleMenu}
+                setEditItem={setEditItem} // <-- Pass setEditItem to open modal
+                deleteTransactionById={handleDelete}
+                isLoading={isDeleting}
+              />
+            ))
+          ) : (
+            <tr>
+              <td colSpan={7} className="text-center py-4">
+                No transactions
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
+  );
+}
+
+function TableHead({ children }) {
+  return (
+    <th className="border w-24 border-gray-300 px-4 py-2 text-center text-xl">
+      {children}
+    </th>
   );
 }
 

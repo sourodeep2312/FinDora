@@ -1,10 +1,13 @@
+import { Bars3Icon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { useUser } from "../hooks/useUser";
 import Logo from "./Logo";
 import SideNav from "./SideNav";
-import { Bars3Icon } from "@heroicons/react/24/solid";
 
 function SideNavLayout() {
+  const { data: user } = useUser();
+
   const [open, setOpen] = useState(false);
   //const navigate = useNavigate();
   return (
@@ -30,11 +33,11 @@ function SideNavLayout() {
           </p>
         </div>
 
-        {/*  <img
-          src="/profile pic.png"
-          alt="profile pic"
-          className="h-16 w-16 circle"
-        /> */}
+        <h1 className="text-2xl  font-bold my-auto text-amber-500">
+          {user?.full_name
+            ? `Hello, ${user.full_name}!!!`
+            : "Welcome to FinDora!"}
+        </h1>
       </header>
 
       {/* SideNav + Content */}

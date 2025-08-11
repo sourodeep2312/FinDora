@@ -4,6 +4,8 @@ import { useSignIn } from "../hooks/useSignin";
 
 import { useState } from "react";
 import toast from "react-hot-toast";
+import Spinner from "./Spinner";
+import SpinnerMini from "./SpinnerMini";
 
 function SignIn() {
   const [email, setEmail] = useState("sd@test.com");
@@ -24,7 +26,7 @@ function SignIn() {
     e.preventDefault();
     signIn({ email, password });
   }
-
+  if (isPending) return <Spinner />;
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
@@ -73,7 +75,7 @@ function SignIn() {
           </p>
           <Button disabled={isPending}>
             {" "}
-            {isPending ? "Sign In..." : "Sign In"}
+            {isPending ? <SpinnerMini /> : "Sign In"}
           </Button>
         </form>
         <p className="text-center text-sm text-zinc-500 mt-6">

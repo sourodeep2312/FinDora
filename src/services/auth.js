@@ -14,11 +14,13 @@ export async function getSignIn({ email, password }) {
   return data;
 }
 
-export async function getSignUp({ email, password }) {
-  const { data, error } = await supabase.auth.signUp({
+export async function getSignUp({ email, password, fullName }) {
+  console.log(fullName);
+  const { data: signinData, error } = await supabase.auth.signUp({
     email,
     password,
   });
+
   if (error) {
     if (
       error.message.includes("already registered") ||
@@ -28,9 +30,31 @@ export async function getSignUp({ email, password }) {
     }
     throw new Error(error.message);
   }
-  return data;
-}
+  const user = signinData.user;
+  if (!user) {
+    throw new Error("User not created. Please try again.");
+  }
 
+  const { data, error: userError } = await supabase
+    .from("profiles")
+    .upsert([
+      {
+        id: user.id,
+        email: user.email,
+        full_name: fullName,
+      },
+    ])
+    .select()
+    .single();
+
+  if (userError) {
+    console.error("Error creating user record:", userError);
+    throw new Error(userError.message);
+  }
+
+  return data;
+  // return data;
+}
 export async function getSignOut() {
   const { error } = await supabase.auth.signOut();
   if (error) {
